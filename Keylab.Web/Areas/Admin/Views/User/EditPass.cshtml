@@ -1,0 +1,122 @@
+﻿<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <meta name="description" content="这是一个form页面">
+    <meta name="keywords" content="form">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <link rel="alternate icon" type="image/png" href="/favicon.png">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="~/Areas/Admin/Assets/css/amazeui.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Assets/css/admin.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- header begin -->
+    @Html.Partial("Header")
+    <!-- header end -->
+    <div class="am-cf admin-main">
+        <!-- sidebar begin -->
+        @Html.Partial("Naver")
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="admin-content-body">
+                <div class="am-cf am-padding am-padding-bottom-0">
+                    <div class="am-fl am-cf">
+                        <strong class="am-text-primary am-text-lg">个人信息</strong> /
+                        <small>修改密码</small>
+                    </div>
+                </div>
+                <hr>
+                <div class="am-g">
+                    <div class="am-u-sm-12 am-u-md-8">
+                        <form class="am-form am-form-horizontal">
+                            <input type="hidden" disabled="disabled" readonly="readonly" id="hidden-id" value="@ViewBag.user.id" />
+                            <div class="am-form-group">
+                                <label for="num" class="am-u-sm-3 am-form-label">账号：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="num" placeholder="账号" disabled="disabled" value="@ViewBag.user.num">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="pass" class="am-u-sm-3 am-form-label">原始密码：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="password" id="pass" placeholder="原始密码">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="newpass" class="am-u-sm-3 am-form-label">新密码：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="password" id="newpass" placeholder="新密码">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="rptpass" class="am-u-sm-3 am-form-label">确认密码：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="password" id="rptpass" placeholder="确认密码">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="am-margin">
+                    <a href="javascript:edit()" class="am-btn am-btn-danger am-btn-xs am-padding-left-xl am-padding-right-xl">确定修改</a>
+                    <a href="javascript:location.reload()" class="am-btn am-btn-success am-btn-xs am-padding-left-xl am-padding-right-xl">重置填写</a>
+                </div>
+            </div>
+        </div>
+        <!-- content end -->
+    </div>
+        @Html.Partial("Footer")
+        <script src="~/Areas/Admin/Assets/js/md5.min.js"></script>
+    <script>
+        //编辑信息
+        function edit() {
+            var $pass = $("#pass");
+            var $newpass = $("#newpass");
+            var $rptpass = $("#rptpass");
+            if ($pass.val().trim() == '') {
+                utils.msgErr('请填写原始密码');
+                $pass.focus();
+                return;
+            }
+            if ($newpass.val().trim() == '') {
+                utils.msgErr('请填写新密码');
+                $newpass.focus();
+                return;
+            }
+            if ($rptpass.val().trim() == '') {
+                utils.msgErr('请再次填写密码');
+                $rptpass.focus();
+                return;
+            }
+            if ($rptpass.val().trim() != $newpass.val().trim()) {
+                $newpass.msgErr('两次密码不一致');
+                $pass.focus();
+                return;
+            }
+            utils.ajax({
+                url: "/admin/user/editpassinfo",
+                data: {
+                    id: $("#hidden-id").val(),
+                    pass: md5($pass.val().trim()),
+                    newpass: md5($newpass.val().trim())
+                },
+                succe: function (data) {
+                    if (data.status == 1) {
+                        utils.msgOk(data.message, function () {
+                            location.reload();
+                        });
+                    } else {
+                        utils.msgErr(data.message, function () {
+                            location.reload();
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

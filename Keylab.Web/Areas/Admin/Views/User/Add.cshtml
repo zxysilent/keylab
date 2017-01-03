@@ -1,0 +1,192 @@
+﻿<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <meta name="description" content="这是一个form页面">
+    <meta name="keywords" content="form">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <link rel="alternate icon" type="image/png" href="/favicon.png">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="~/Areas/Admin/Assets/css/amazeui.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Assets/css/admin.css" rel="stylesheet" />
+    <style>
+        #keylab-slider-img {
+            max-width: 900px;
+            max-height: 300px;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- header begin -->
+    @Html.Partial("Header")
+    <!-- header end -->
+    <div class="am-cf admin-main">
+        <!-- sidebar begin -->
+        @Html.Partial("Naver")
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="admin-content-body">
+                <div class="am-cf am-padding am-padding-bottom-0">
+                    <div class="am-fl am-cf">
+                        <strong class="am-text-primary am-text-lg">用户</strong> /
+                        <small>编辑</small>
+                    </div>
+                </div>
+                <hr>
+                <div class="am-g">
+                    <div class="am-u-sm-12 am-u-md-8">
+                        <form class="am-form am-form-horizontal">
+                            <div class="am-form-group">
+                                <label for="num" class="am-u-sm-3 am-form-label">账号：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="num" onchange="repeatNum()" placeholder="账号">
+                                    <small id="num-info" class="am-text-danger"></small>
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="name" class="am-u-sm-3 am-form-label">姓名：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="name" placeholder="姓名">
+                                    <small class="am-text-danger">用户姓名长度不能大于50</small>
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="phone" class="am-u-sm-3 am-form-label">电话号码：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="phone" placeholder="电话号码">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="email" class="am-u-sm-3 am-form-label">邮箱：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="email" placeholder="邮箱">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="pass" class="am-u-sm-3 am-form-label">密码：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="password" id="pass" placeholder="密码">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="rptpass" class="am-u-sm-3 am-form-label">确认密码：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="password" id="rptpass" placeholder="确认密码">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="login" class="am-u-sm-3 am-form-label">登陆次数：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="login" placeholder="登陆次数" disabled="disabled" value="0">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="am-margin">
+                    <a id="create" href="javascript:create()" class="am-btn am-btn-danger am-btn-xs am-padding-left-xl am-padding-right-xl">确定添加</a>
+                    <a href="javascript:location.reload()" class="am-btn am-btn-success am-btn-xs am-padding-left-xl am-padding-right-xl">重置填写</a>
+                    <a href="/admin/user/index" class="am-btn am-btn-primary am-btn-xs am-padding-left-xl am-padding-right-xl">取消返回</a>
+                </div>
+            </div>
+        </div>
+        <!-- content end -->
+    </div>
+    @Html.Partial("Footer")
+    <script src="~/Areas/Admin/Assets/js/md5.min.js"></script>
+    <script>
+        //添加信息
+        function create() {
+            var $num = $("#num");
+            if ($num.val().trim() == '') {
+                utils.msgErr('请填写账号');
+                $num.focus();
+                return;
+            }
+            if ($num.val().trim().length > 50) {
+                utils.msgErr('用户账号长度不能大于50');
+                $num.focus();
+                return;
+            }
+            var $name = $("#name");
+            if ($name.val().trim() == '') {
+                utils.msgErr('请填写用户姓名');
+                $name.focus();
+                return;
+            }
+            if ($name.val().trim().length > 50) {
+                utils.msgErr('用户姓名长度不能大于50');
+                $name.focus();
+                return;
+            }
+
+            var $phone = $("#phone");
+            var $email = $("#email");
+            var $login = $("#login");
+            var $pass = $("#pass");
+            var $rptpass = $("#rptpass");
+            if ($pass.val().trim() == '') {
+                utils.msgErr('请填写密码');
+                $pass.focus();
+                return;
+            }
+            if ($rptpass.val().trim() == '') {
+                utils.msgErr('请再次填写密码');
+                $rptpass.focus();
+                return;
+            }
+            if ($rptpass.val().trim() !=$pass.val().trim()) {
+                utils.msgErr('两次密码不一致');
+                $pass.focus();
+                return;
+            }
+            utils.ajax({
+                url: "/admin/user/addinfo",
+                data: {
+                    num: $num.val().trim(),
+                    name: $name.val().trim(),
+                    phone: $phone.val().trim(),
+                    email: $email.val().trim(),
+                    login: $login.val().trim(),
+                    pass: md5($pass.val().trim())
+                },
+                succe: function (data) {
+                    if (data.status == 1) {
+                        utils.msgOk(data.message, function () {
+                            location.href = '/admin/user/index';
+                        });
+                    } else {
+                        utils.msgErr(data.message, function () {
+                            location.reload();
+                        });
+                    }
+                }
+            });
+        }
+
+        function repeatNum() {
+            var $num = $("#num");
+            utils.ajax({
+                url: "/admin/user/repeatnum",
+                data: {
+                    num: $num.val().trim(),
+                },
+                succe: function (data) {
+                    if (data.status == 1) {
+                        $num.focus();
+                        $("#create").attr('disabled', true);
+                        $("#num-info").html('当前账号已经存在');
+                    } else {
+                        $("#num-info").html('');
+                        $("#create").attr('disabled', false);
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

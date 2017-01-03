@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>西南野生动植物资源保护教育部重点实验室</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="alternate icon" type="image/png" href="/favicon.png">
+    <link href="~/Areas/Admin/Assets/css/amazeui.min.css" rel="stylesheet" />
+    <style>
+        .header {
+            text-align: center;
+        }
+
+            .header h1 {
+                font-size: 200%;
+                color: #333;
+                margin-top: 30px;
+            }
+
+            .header p {
+                font-size: 14px;
+            }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="am-g">
+            <h1>后台管理登陆</h1>
+            <p>西南野生动植物资源保护教育部重点实验室</p>
+        </div>
+        <hr />
+    </div>
+    <div class="am-g">
+        <div class="am-u-lg-4 am-u-md-6 am-u-sm-centered">
+            <h3>登录</h3>
+            <hr>
+            <form method="get" class="am-form">
+                <label for="num">账号:</label>
+                <input type="text" id="num" placeholder="账号" maxlength="30">
+                <br>
+                <label for="pass">密码:</label>
+                <input type="password" id="pass" placeholder="密码" maxlength="30">
+                <small class="am-text-danger">请谨慎输入密码，如果15分钟内连续输错3次密码，此账号将会被锁定15分钟</small>
+                <br>
+                <br>
+                <div class="am-cf">
+                    <input type="button" value="确认登录" class="am-btn am-btn-primary am-btn-sm am-fl" onclick="login()" />
+                    <a href="/" class="am-btn am-btn-secondary am-btn-sm am-margin-left-sm">返回主页</a>
+                    <input type="button" value="忘记密码 ^_^? " class="am-btn am-btn-warning am-btn-sm am-fr" onclick="forget()" />
+                </div>
+            </form>
+            <hr>
+            © Copyright 2016 -
+            <script>var d = new Date(); document.write(d.getFullYear());</script> 西南野生动植物资源保护教育部重点实验室<br />
+        </div>
+    </div>
+    <script src="~/Areas/Admin/Assets/js/jquery.min.js"></script>
+    <script src="~/Areas/Admin/Assets/js/amazeui.min.js"></script>
+    <script src="~/Areas/Admin/Assets/js/layer/layer.js"></script>
+    <script src="~/Areas/Admin/Assets/js/md5.min.js"></script>
+    <script src="~/Areas/Admin/Assets/js/app.js"></script>
+    <script>
+        function forget() {
+            layer.msg('请联系管理员', { offset: '15%' });
+        }
+        document.onkeydown = function (event) {
+            var e = event || window.event || arguments.callee.caller.arguments[0];
+            if (e && e.keyCode == 13) { // enter 键
+                login();
+            }
+        };
+    </script>
+</body>
+</html>

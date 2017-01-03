@@ -1,0 +1,26 @@
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.BLL\bin\Debug\Keylab.BLL.dll
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.BLL\bin\Debug\Keylab.BLL.pdb
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.BLL\obj\Debug\Keylab.BLL.dll
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.BLL\obj\Debug\Keylab.BLL.pdb
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.BLL\obj\Debug\Keylab.BLL.csprojResolveAssemblyReference.cache
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.BLL\bin\Debug\Keylab.DAL.dll
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.BLL\bin\Debug\MySql.Data.dll
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.BLL\bin\Debug\Dapper.dll
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.BLL\bin\Debug\Keylab.DAL.pdb
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.BLL\bin\Debug\Dapper.xml
+D:\Work\生科\Keylab\Keylab.BLL\bin\Debug\Keylab.BLL.dll
+D:\Work\生科\Keylab\Keylab.BLL\bin\Debug\Keylab.BLL.pdb
+D:\Work\生科\Keylab\Keylab.BLL\bin\Debug\Keylab.DAL.dll
+D:\Work\生科\Keylab\Keylab.BLL\bin\Debug\Keylab.Models.dll
+D:\Work\生科\Keylab\Keylab.BLL\bin\Debug\Keylab.Utils.dll
+D:\Work\生科\Keylab\Keylab.BLL\bin\Debug\MySql.Data.dll
+D:\Work\生科\Keylab\Keylab.BLL\bin\Debug\Dapper.dll
+D:\Work\生科\Keylab\Keylab.BLL\bin\Debug\Newtonsoft.Json.dll
+D:\Work\生科\Keylab\Keylab.BLL\bin\Debug\Keylab.DAL.pdb
+D:\Work\生科\Keylab\Keylab.BLL\bin\Debug\Keylab.Models.pdb
+D:\Work\生科\Keylab\Keylab.BLL\bin\Debug\Keylab.Utils.pdb
+D:\Work\生科\Keylab\Keylab.BLL\bin\Debug\Dapper.xml
+D:\Work\生科\Keylab\Keylab.BLL\bin\Debug\Newtonsoft.Json.xml
+D:\Work\生科\Keylab\Keylab.BLL\obj\Debug\Keylab.BLL.csprojResolveAssemblyReference.cache
+D:\Work\生科\Keylab\Keylab.BLL\obj\Debug\Keylab.BLL.dll
+D:\Work\生科\Keylab\Keylab.BLL\obj\Debug\Keylab.BLL.pdb

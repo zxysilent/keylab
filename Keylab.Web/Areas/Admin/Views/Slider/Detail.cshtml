@@ -1,0 +1,107 @@
+﻿<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <meta name="description" content="这是一个form页面">
+    <meta name="keywords" content="form">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <link rel="alternate icon" type="image/png" href="/favicon.png">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="~/Areas/Admin/Assets/css/amazeui.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Assets/css/admin.css" rel="stylesheet" />
+    <style>
+        #keylab-slider-img {
+            max-width: 900px;
+            max-height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <!-- header begin -->
+    @Html.Partial("Header")
+    <!-- header end -->
+    <div class="am-cf admin-main">
+        <!-- sidebar begin -->
+        @Html.Partial("Naver")
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="admin-content-body">
+                <div class="am-cf am-padding am-padding-bottom-0">
+                    <div class="am-fl am-cf">
+                        <strong class="am-text-primary am-text-lg">首页大图</strong> /
+                        <small>查看</small>
+                    </div>
+                </div>
+                <hr>
+                <div class="am-g">
+                    <form class="am-form">
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                标题
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input type="text" class="am-input-sm" disabled="disabled" value="@ViewBag.slider.title">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6"></div>
+                        </div>
+
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                是否可跳转
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                @if (ViewBag.slider.skip) {
+                                    <input type="checkbox" disabled="disabled" class="am-input-sm" checked="checked">
+                                } else {
+                                    <input type="checkbox" disabled="disabled" class="am-input-sm">
+                                }
+                            </div>
+                        </div>
+
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                跳转链接
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                @if (ViewBag.slider.skip) {
+                                    <input type="text" class="am-input-sm" disabled="disabled" value="@ViewBag.slider.link">
+                                } else {
+                                    <input type="text" class="am-input-sm" disabled="disabled" value="无跳转">
+                                }
+
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6"></div>
+                        </div>
+
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                更新时间
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input type="text" class="am-form-field" disabled="disabled" value="@ViewBag.slider.utime.ToString("yyyy-MM-dd")"/>
+                            </div>
+                            <div class="am-u-sm-12 am-u-md-6"></div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                图片
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-10">
+                                <img id="keylab-slider-img" src="@ViewBag.slider.url" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="am-margin">
+                    <a href="/admin/slider/index" class="am-btn am-btn-primary am-btn-xs am-padding-left-xl am-padding-right-xl">返&nbsp;&nbsp;&nbsp;回</a>
+                </div>
+            </div>
+        </div>
+        <!-- content end -->
+    </div>
+    @Html.Partial("Footer")
+</body>
+</html>

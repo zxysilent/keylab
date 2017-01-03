@@ -1,0 +1,48 @@
+﻿
+<!doctype html>
+<html class="no-js fixed-layout">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <meta name="description" content="这是一个 index 页面">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="alternate icon" type="image/png" href="/favicon.png">
+    <link href="~/Areas/Admin/Assets/css/amazeui.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Assets/css/admin.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- header begin -->
+    @Html.Partial("Header")
+    <!-- header end -->
+    <div class="am-cf admin-main">
+        <!-- sidebar begin -->
+        @Html.Partial("Naver")
+        <!-- sidebar end -->
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="admin-content-body">
+                <div class="am-cf am-padding">
+                    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong> / <small>一些常用模块</small></div>
+                </div>
+
+                <ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
+                    <li class="am-text-success"><span class="am-icon-btn am-icon-file-text"></span><br />页面数量<br />@ViewBag.articleCount</li>
+                    <li class="am-text-warning"><span class="am-icon-btn am-icon-bookmark-o"></span><br />大图数量<br />@ViewBag.sliderCount</li>
+                    <li class="am-text-secondary"><span class="am-icon-btn am-icon-user-md"></span><br />管理员<br />@ViewBag.userCount</li>
+                </ul>
+                <ul class="am-avg-sm-1 am-avg-md-4 am-margin am-padding am-text-center admin-content-list ">
+                    <li><a href="/admin/article/add" class="am-text-success"><span class="am-icon-btn am-icon-plus"></span><br />添加文章</a></li>
+                    <li><a href="/admin/slider/add" class="am-text-warning"><span class="am-icon-btn am-icon-plus"></span><br />添加大图</a></li>
+                    <li><a href="/admin/user/add" class="am-text-secondary"><span class="am-icon-btn am-icon-plus"></span><br />添加管理者</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- content end -->
+    </div>
+    @Html.Partial("Footer")
+</body>
+</html>

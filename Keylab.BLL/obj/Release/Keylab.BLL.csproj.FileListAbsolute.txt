@@ -1,0 +1,16 @@
+D:\Work\生科\Keylab\Keylab.BLL\bin\Release\Keylab.BLL.dll
+D:\Work\生科\Keylab\Keylab.BLL\bin\Release\Keylab.BLL.pdb
+D:\Work\生科\Keylab\Keylab.BLL\bin\Release\Keylab.DAL.dll
+D:\Work\生科\Keylab\Keylab.BLL\bin\Release\Keylab.Models.dll
+D:\Work\生科\Keylab\Keylab.BLL\bin\Release\Keylab.Utils.dll
+D:\Work\生科\Keylab\Keylab.BLL\bin\Release\MySql.Data.dll
+D:\Work\生科\Keylab\Keylab.BLL\bin\Release\Dapper.dll
+D:\Work\生科\Keylab\Keylab.BLL\bin\Release\Newtonsoft.Json.dll
+D:\Work\生科\Keylab\Keylab.BLL\bin\Release\Keylab.DAL.pdb
+D:\Work\生科\Keylab\Keylab.BLL\bin\Release\Keylab.Models.pdb
+D:\Work\生科\Keylab\Keylab.BLL\bin\Release\Keylab.Utils.pdb
+D:\Work\生科\Keylab\Keylab.BLL\bin\Release\Dapper.xml
+D:\Work\生科\Keylab\Keylab.BLL\bin\Release\Newtonsoft.Json.xml
+D:\Work\生科\Keylab\Keylab.BLL\obj\Release\Keylab.BLL.csprojResolveAssemblyReference.cache
+D:\Work\生科\Keylab\Keylab.BLL\obj\Release\Keylab.BLL.dll
+D:\Work\生科\Keylab\Keylab.BLL\obj\Release\Keylab.BLL.pdb

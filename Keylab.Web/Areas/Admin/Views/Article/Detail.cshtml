@@ -1,0 +1,178 @@
+﻿<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <meta name="description" content="这是一个form页面">
+    <meta name="keywords" content="form">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <link rel="alternate icon" type="image/png" href="/favicon.png">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="~/Areas/Admin/Assets/css/amazeui.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Assets/css/admin.css" rel="stylesheet" />
+    <style>
+        #keylab-article-img {
+            max-height: 110px;
+            max-width: 160px;
+        }
+    </style>
+</head>
+<body>
+    <!-- header begin -->
+    @Html.Partial("Header")
+    <!-- header end -->
+    <div class="am-cf admin-main">
+        <!-- sidebar begin -->
+        @Html.Partial("Naver")
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="admin-content-body">
+                <div class="am-cf am-padding am-padding-bottom-0">
+                    <div class="am-fl am-cf">
+                        <strong class="am-text-primary am-text-lg">文章</strong> /
+                        <small>详细</small>
+                    </div>
+                </div>
+                <hr>
+                <div class="am-g">
+                    <div class="am-tabs am-margin" data-am-tabs="{noSwipe: 1}">
+                        <ul class="am-tabs-nav am-nav am-nav-tabs">
+                            <li class="am-active"><a href="#tab1">基本信息</a></li>
+                            <li><a href="#tab2">详细描述</a></li>
+                        </ul>
+                        <div class="am-tabs-bd">
+                            <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+                                <div class="am-g am-margin-top">
+                                    <div class="am-u-sm-4 am-u-md-2 am-text-right">所属大类别：</div>
+                                    <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                        <select data-am-selected="{btnSize: 'sm'}" id="supclass">
+                                            <option>@ViewBag.article.supname</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="am-g am-margin-top">
+                                    <div class="am-u-sm-4 am-u-md-2 am-text-right">所属小类别：</div>
+                                    <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                        <select data-am-selected="{btnSize: 'sm'}" id="subclass">
+                                            <option>@ViewBag.article.subname</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="am-g am-margin-top">
+                                    <div class="am-u-sm-4 am-u-md-2 am-text-right">显示类别：</div>
+                                    <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                        <div class="am-btn-group" data-am-button>
+                                            @if (ViewBag.article.type) {
+                                                <label class="am-btn am-btn-default am-btn-xs">
+                                                    <input type="radio" name="article-type"> 普通文章
+                                                </label>
+                                            } else {
+                                                <label class="am-btn am-btn-default am-btn-xs">
+                                                    <input type="radio" name="article-type"> 信息页面
+                                                </label>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="am-g am-margin-top">
+                                    <div class="am-u-sm-4 am-u-md-2 am-text-right">优先类型：</div>
+                                    <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                        <div class="am-btn-group" data-am-button>
+                                            @if (ViewBag.article.order > 10000) {
+                                                <label class="am-btn am-btn-default am-btn-xs">
+                                                    <input type="radio" name="article-order"> 置顶
+                                                </label>
+                                            } else {
+                                                <label class="am-btn am-btn-default  am-btn-xs">
+                                                    <input type="radio" name="article-order"> 普通
+                                                </label>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="am-g am-margin-top">
+                                    <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                        发布时间：
+                                    </div>
+                                    <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                        <form class="am-form am-form-inline">
+                                            <div class="am-form-group am-form-icon">
+                                                <i class="am-icon-calendar"></i>
+                                                <input type="date" id="utime" disabled="disabled" value="@ViewBag.article.utime.ToString("yyyy-MM-dd")" class="am-form-field am-input-sm" placeholder="选择时间" data-am-datepicker readonly required>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                                <div class="am-g am-margin-top">
+                                    <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                        封面图片：
+                                    </div>
+                                    <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                        <img id="keylab-article-img" src="@ViewBag.article.url">
+                                    </div>
+                                </div>
+                                <div class="am-g am-margin-top">
+                                    <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                        点击量：
+                                    </div>
+                                    <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                        <form class="am-form am-form-inline">
+                                            <div class="am-form-group am-form-icon">
+                                                <input type="number" class="am-form-field am-input-sm" disabled="disabled" id="hit" placeholder="点击量" min="0" value="@ViewBag.article.hit" max="19941009" required />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="am-tab-panel am-fade" id="tab2">
+                                <form class="am-form">
+                                    <div class="am-g am-margin-top">
+                                        <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                            文章标题：
+                                        </div>
+                                        <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                          <small>@ViewBag.article.title</small>
+                                        </div>
+                                    </div>
+                                    <div class="am-g am-margin-top">
+                                        <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                            文章作者：
+                                        </div>
+                                        <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                            <input type="text" class="am-input-sm" disabled="disabled" id="author" value="@ViewBag.article.author">
+                                        </div>
+                                    </div>
+                                    <div class="am-g am-margin-top">
+                                        <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                            文章来源：
+                                        </div>
+                                        <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                            <input type="text" class="am-input-sm" disabled="disabled" id="origin" value="@ViewBag.article.origin">
+                                        </div>
+                                    </div>
+                                    <div class="am-g am-margin-top-sm">
+                                        <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                            文章内容：
+                                        </div>
+                                        <div class="am-u-sm-12 am-u-md-8 am-u-end">
+                                            <div style="min-height:400px;max-width:100%;border:1px solid #f5f5f5" id="editor">@Html.Raw(ViewBag.article.content)</div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-margin">
+                    <a href="/admin/article/index" class="am-btn am-btn-primary am-btn-xs am-padding-left-xl am-padding-right-xl">取消返回</a>
+                </div>
+            </div>
+        </div>
+        <!-- content end -->
+    </div>
+    @Html.Partial("Footer")
+</body>
+</html>

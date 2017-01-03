@@ -1,0 +1,17 @@
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.DAL\bin\Debug\Keylab.DAL.dll.config
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.DAL\bin\Debug\Keylab.DAL.dll
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.DAL\bin\Debug\Keylab.DAL.pdb
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.DAL\bin\Debug\Dapper.dll
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.DAL\bin\Debug\MySql.Data.dll
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.DAL\bin\Debug\Dapper.xml
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.DAL\obj\Debug\Keylab.DAL.dll
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.DAL\obj\Debug\Keylab.DAL.pdb
+D:\Work\生科\Keylab\Keylab.DAL\bin\Debug\Keylab.DAL.dll.config
+D:\Work\生科\Keylab\Keylab.DAL\bin\Debug\Keylab.DAL.dll
+D:\Work\生科\Keylab\Keylab.DAL\bin\Debug\Keylab.DAL.pdb
+D:\Work\生科\Keylab\Keylab.DAL\bin\Debug\Dapper.dll
+D:\Work\生科\Keylab\Keylab.DAL\bin\Debug\MySql.Data.dll
+D:\Work\生科\Keylab\Keylab.DAL\bin\Debug\Dapper.xml
+D:\Work\生科\Keylab\Keylab.DAL\obj\Debug\Keylab.DAL.dll
+D:\Work\生科\Keylab\Keylab.DAL\obj\Debug\Keylab.DAL.pdb
+D:\Work\生科\Keylab\Keylab.DAL\obj\Debug\Keylab.DAL.csprojResolveAssemblyReference.cache

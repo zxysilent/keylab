@@ -1,0 +1,234 @@
+﻿<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <meta name="description" content="这是一个form页面">
+    <meta name="keywords" content="form">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <link rel="alternate icon" type="image/png" href="/favicon.png">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="~/Areas/Admin/Assets/css/amazeui.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Assets/css/admin.css" rel="stylesheet" />
+    <style>
+        #keylab-slider-img {
+            max-width: 900px;
+            max-height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <!-- header begin -->
+    @Html.Partial("Header")
+    <!-- header end -->
+    <div class="am-cf admin-main">
+        <!-- sidebar begin -->
+        @Html.Partial("Naver")
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="admin-content-body">
+                <div class="am-cf am-padding am-padding-bottom-0">
+                    <div class="am-fl am-cf">
+                        <strong class="am-text-primary am-text-lg">首页大图</strong> /
+                        <small>编辑</small>
+                    </div>
+                </div>
+                <hr>
+                <div class="am-g">
+                    <form class="am-form">
+                        <input type="hidden" disabled="disabled" readonly="readonly" id="hidden-id" value="@ViewBag.slider.id" />
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                标题：
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input type="text" id="title" class="am-input-sm" value="@ViewBag.slider.title">
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6">*必填(字数限制200)</div>
+                        </div>
+
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                是否可跳转：
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                @if (ViewBag.slider.skip) {
+                                    <input type="checkbox" id="skip" onchange="checkSkip(this)" class="am-input-sm" checked="checked">
+                                } else {
+                                    <input type="checkbox" id="skip" onchange="checkSkip(this)" class="am-input-sm">
+                                }
+                            </div>
+                        </div>
+
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                跳转链接：
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                @if (ViewBag.slider.skip) {
+                                    <input type="text" id="link" class="am-input-sm" value="@ViewBag.slider.link">
+                                } else {
+                                    <input type="text" id="link" disabled="disabled" class="am-input-sm" value="无跳转">
+                                }
+
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6">(字数限制200)</div>
+                        </div>
+
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                更新时间：
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <input type="text" id="utime" class="am-form-field" value="@ViewBag.slider.utime.ToString("yyyy-MM-dd")" placeholder="选择时间" data-am-datepicker readonly required />
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6"><small class="am-text-danger">点击选择</small></div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                图片：
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-4">
+                                <img id="keylab-slider-img" src="@ViewBag.slider.url" />
+                            </div>
+                            <div class="am-hide-sm-only am-u-md-6">*必填</div>
+                        </div>
+                        <div class="am-g am-margin-top">
+                            <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                添加图片：
+                            </div>
+                            <div class="am-u-sm-8 am-u-md-10">
+                                <div id="uploader-demo">
+                                    <div id="filePicker">选择图片</div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="am-margin">
+                    <a href="javascript:edit()" class="am-btn am-btn-danger am-btn-xs am-padding-left-xl am-padding-right-xl">确定修改</a>
+                    <a href="javascript:location.reload()" class="am-btn am-btn-success am-btn-xs am-padding-left-xl am-padding-right-xl">重置填写</a>
+                    <a href="/admin/slider/index" class="am-btn am-btn-primary am-btn-xs am-padding-left-xl am-padding-right-xl">取消返回</a>
+                </div>
+            </div>
+        </div>
+        <!-- content end -->
+    </div>
+    @Html.Partial("Footer")
+    <script src="~/Areas/Admin/Assets/js/uploader/webuploader.nolog.min.js"></script>
+    <script>
+        
+        // 初始化Web Uploader
+        var uploader = WebUploader.create({
+            auto: true,
+            swf: '~/Areas/Admin/Assets/js/uploader/Uploader.swf',
+            server: '/admin/slider/upload',
+            pick: '#filePicker',
+            formData: {},
+            fileVal: 'file',
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/*'
+            },
+            duplicate: true,
+            compress: {
+                width: 1200,
+                height: 400,
+                quality: 90,
+                allowMagnify: false,
+                crop: false,
+                preserveHeaders: true,
+                noCompressIfLarger: false,
+                compressSize: 0
+            }
+        });
+        //监听上传成功
+        uploader.on('uploadSuccess', function (file, data) {
+            console.log(data);
+            if (data.status == 1) {
+                $("#keylab-slider-img").attr('src', data.message);
+            } else {
+                utils.msgErr(data.message);
+            }
+        });
+        //监听上传失败
+        uploader.on('uploadError', function (file) {
+            utils.msgErr('图片上传失败,请刷新后重试！');
+        });
+
+        //是否可跳转 逻辑判断
+        function checkSkip(obj) {
+            var $obj = $(obj);
+            var $link = $("#link");
+            if ($obj.is(":checked")) {//可以跳转
+                $link.attr("disabled", false).val('').focus();
+            } else {//不可跳转
+                $link.attr("disabled", true).val('无跳转');
+            }
+        }
+        //编辑信息
+        function edit() {
+            var $title = $("#title");
+            if ($title.val().trim() == '') {
+                utils.msgErr('请输入标题');
+                $title.focus();
+                return;
+            }
+            if ($title.val().trim().length > 200) {
+                utils.msgErr('标题长度不能超过200字符');
+                $title.focus();
+                return;
+            }
+            var $skip = $("#skip");
+            var skip = false;
+            if ($skip.is(":checked")) {
+                skip = true;
+            }
+            var $link = $("#link");
+            if (skip && $link.val().trim() == '') {
+                utils.msgErr('请填写跳转链接');
+                $link.focus();
+                return;
+            }
+            if (skip && !utils.isURL($link.val().trim())) {
+                utils.msgErr('请填写正确的链接');
+                $link.focus();
+                return;
+            }
+            var $utime = $("#utime");
+            if ($utime.val().trim() == '') {
+                utils.msgErr('请选择时间');
+                $utime.focus();
+                return;
+            }
+            var $utime = $("#utime");
+            var $url = $("#keylab-slider-img");
+            utils.ajax({
+                url: "/admin/slider/editinfo",
+                data: {
+                    id: $("#hidden-id").val(),
+                    title: $title.val().trim(),
+                    skip: skip,
+                    link: $link.val().trim(),
+                    utime: $utime.val(),
+                    url: $url.attr('src')
+                },
+                succe: function (data) {
+                    if (data.status == 1) {
+                        utils.msgOk(data.message, function () {
+                            location.href = '/admin/slider/index';
+                        });
+                    } else {
+                        utils.msgErr(data.message, function () {
+                            location.reload();
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

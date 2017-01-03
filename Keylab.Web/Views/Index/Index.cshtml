@@ -1,0 +1,253 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+    <title>西南野生动植物资源保护教育部重点实验室</title>
+    <meta name="renderer" content="webkit">
+    <link rel="alternate icon" type="image/png" href="/favicon.png">
+    <link href="~/Assets/css/amazeui.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/app.css" rel="stylesheet" />
+    <!--[if lte IE 8 ]>
+        <script src="~/Assets/js/modernizr.min.js"></script>
+        <script src="~/Assets/js/amazeui.ie8polyfill.min.js"></script>
+     <![endif]-->
+    <style>
+        .am-slides-nav img {
+            height: 400px;
+        }
+
+        .am-slides-news img {
+            height: 220px;
+            width: 100%;
+        }
+
+        .am-slides-news a {
+            max-width: 250px;
+        }
+
+        .news-list-sub-8 > li > a {
+            max-width: 225px;
+        }
+
+        .lintul-links_net {
+            padding-left: 70px;
+        }
+
+        .lintul-links > li {
+            border: none;
+            line-height: 28px;
+            font-size: 1.4rem;
+        }
+
+            .lintul-links > li > a {
+                padding: 0;
+                line-height: 25px;
+            }
+
+        .lintul-links-a {
+            cursor: pointer;
+            color: #fff;
+            padding-right: 10px;
+        }
+
+            .lintul-links-a:hover {
+                color: #808080;
+            }
+    </style>
+</head>
+<body id="blog">
+    @Html.Partial("Header")
+    @Html.Partial("Naver")
+    <div class="container">
+        <div class="am-g am-g-fixed blog-fixed">
+            <div class="am-u-sm-12">
+                <div class="am-g">
+                    <div data-am-widget="slider" class="am-slider am-slider-b1" data-am-flexslider="{slideshow: true,animation: 'fade',slideshowSpeed: 2500}">
+                        <ul class="am-slides am-slides-nav">
+                            @*<li>
+                                    <img src="/assets/images/b1.jpg" />
+                                    <div class="blog-slider-desc am-slider-desc ">
+                                        <a class="am-text-truncate" href="">
+                                            西华师范大学生命科学学院2014届硕士研究生毕业留影
+                                        </a>
+                                        <span>2015/10/9</span>
+                                    </div>
+                                </li>*@
+
+                            @foreach (var item in ViewBag.Silder) {
+                                <li>
+                                    <a target="_blank" href="@item.link">
+                                        <img src="@item.url" />
+                                    </a>
+                                    <div class="blog-slider-desc am-slider-desc">
+                                        <a class="am-text-truncate" target="_blank" href="@item.link">
+                                            @item.title
+                                        </a>
+                                        <span>@item.utime.ToString("yyyy-MM-dd")</span>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!--滚动图-->
+    <div class="container">
+        <div class="am-g am-g-fixed blog-fixed">
+            <div class="am-u-sm-4 ">
+                <div class="am-g blog-entry-article am-padding-bottom-0 am-margin-bottom-0" style="border-bottom:none;">
+                    <div class="blog-sidebar-widget blog-bor" style="height: 275px;">
+                        <h2 class="blog-text-left blog-title"><span style="cursor:default" class="am-icon-newspaper-o am-icon-sm">&nbsp;&nbsp;新闻公告</span><a class="am-fr lintul-links-a am-icon-arrow-circle-right am-icon-sm" href="/list/index/tzgg/xwgg">&nbsp;more</a></h2>
+                        <ul class="news-list">
+                            @foreach (var item in ViewBag.ArticleXwgg) {
+                                <li>
+                                    <a href="/detail/index/@item.id" title="@item.title">@item.title</a>
+                                    <span class="date">@item.utime.ToString("yyyy-MM-dd")</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="am-u-sm-8">
+                <div class="am-g blog-entry-article am-padding-bottom-0 am-margin-bottom-0" style="border-bottom:none;">
+                    <div class="am-u-sm-12 blog-entry-text am-padding-right-0">
+                        <div class="blog-sidebar-widget blog-bor" style="height: 275px;">
+                            <h2 class="blog-text-left blog-title"><span class="am-icon-fire am-icon-sm">&nbsp;&nbsp;最新动态</span><a class="am-fr lintul-links-a am-icon-arrow-circle-right am-icon-sm" href="/list/index/tzgg/zxdt">&nbsp;more</a></h2>
+                            <div class="am-u-sm-12 blog-entry-text">
+                                <div class="am-u-sm-6  blog-entry-text">
+                                    <div class="am-g">
+                                        <div data-am-widget="slider" class="am-slider  am-slider-b1" data-am-flexslider="{initDelay:800,slideshow: true,animation: 'fade',slideshowSpeed: 2500}">
+                                            <ul class="am-slides am-slides-news am-text-left">
+                                                @foreach (var item in ViewBag.ArticleZxdtImg) {
+                                                    <li>
+                                                        <img src="@item.url" />
+                                                        <div class="am-slider-desc  blog-slider-desc">
+                                                            <a href="/detail/index/@item.id" title="@item.title">@item.title</a>
+                                                            <span class="date">@item.utime.ToString("yyyy-MM-dd")</span>
+                                                        </div>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="am-u-sm-6 blog-entry-text am-padding-right-0">
+                                    <div class="blog-sidebar-widget" style="height: 254px;">
+                                        <ul class="news-list news-list-sub-8">
+                                            @foreach (var item in ViewBag.ArticleZxdt) {
+                                                <li>
+                                                    <a href="/detail/index/@item.id" title="@item.title">@item.title</a>
+                                                    @{
+                                                TimeSpan ts = DateTime.Now - item.utime;
+                                                if (ts.TotalDays <= 7 && item.hit < 100) {
+                                                    <img src="/assets/images/new.gif" />
+                                                }
+                                                if (item.hit >= 100) {
+                                                    <img src="/assets/images/hot.gif" />
+                                                }
+                                                    }
+                                                    <span class="date">@item.utime.ToString("yyyy-MM-dd")</span>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!--通知公告&最新动态-->
+    <div class="container">
+        <div class="am-g am-g-fixed blog-fixed">
+            <div class="am-u-sm-4">
+                <div class="am-g blog-entry-article am-padding-bottom-0 am-margin-bottom-0" style="border-bottom:none;">
+                    <div class="blog-sidebar-widget blog-bor" style="height: 254px;">
+                        <h2 class="blog-title blog-text-left"><span class="am-icon-th am-icon-sm"></span></h2>
+                        <div class="am-g">
+                            <div class="am-u-sm-6 am-padding">
+                                <a href="#" class="am-img-thumbnail am-radius">
+                                    <img alt="开放课题" title="开放课题" src="/assets/images/project.jpg" style="width:100%;height:150px" />开放课题
+                                </a>
+                            </div>
+                            <div class="am-u-sm-6 am-padding">
+                                <a href="#" class="am-img-thumbnail am-radius">
+                                    <img alt="国家自然科学基金" title="国家自然科学基金" src="/assets/images/nnfp.jpg" style="width:100%;height:150px" />国家自然科学基金
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="am-u-sm-8">
+                <div class="am-g blog-entry-article am-padding-bottom-0 am-margin-bottom-0" style="border-bottom:none;">
+                    <div class="am-u-sm-12 blog-entry-text am-padding-right-0">
+                        <div class="blog-sidebar-widget blog-bor" style="height: 254px;">
+                            <h2 class="blog-text-left blog-title"><span class="am-icon-leanpub am-icon-sm">&nbsp;&nbsp;最新科研成果</span><a class="am-fr lintul-links-a am-icon-arrow-circle-right am-icon-sm" href="/list/index/xsky/kycg">&nbsp;more</a></h2>
+                            <ul class="news-list news-list-8">
+                                @foreach (var item in ViewBag.ArticleKycg) {
+                                    <li>
+                                        <a href="/detail/index/@item.id" title="@item.title">@item.title</a>
+                                        <span class="date">@item.utime.ToString("yyyy-MM-dd")</span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!--功能区&最新研究成果-->
+    <div class="container">
+        <div class="am-g am-g-fixed blog-fixed">
+            <div class="am-u-sm-4 ">
+                <div class="am-g blog-entry-article am-padding-bottom-0 am-margin-bottom-0" style="border-bottom:none;">
+                    <div class="blog-sidebar-widget blog-bor" style="height: 254px;">
+                        <h2 class="blog-title blog-text-left"><span class="am-icon-chain-broken am-icon-sm">&nbsp;&nbsp;友情链接</span></h2>
+                        <div class="am-g">
+                            <div class="am-u-md-12 am-padding-horizontal-xs">
+                                <ul class="am-list lintul-links am-text-left am-padding-left">
+                                    <li><a target="_blank" title="四川省环境科学与生物多样性重点实验室" href="http://www.cwnu.edu.cn/hjkxlab/organization.htm">四川省环境科学与生物多样性重点实验室</a></li>
+                                    <li><a target="_blank" title="中国科学院" href="http://www.cas.cn/">中国科学院</a></li>
+                                    <li><a target="_blank" title="国家自然科学基金委员会" href="http://www.nsfc.gov.cn/">国家自然科学基金委员会</a></li>
+                                    <li><a target="_blank" title="生物反应器工程国家重点实验室" href="http://sklbe.ecust.edu.cn/">生物反应器工程国家重点实验室</a></li>
+                                    <li><a target="_blank" title="北京大学生命科学学院" href="http://www.pku-bio.org/">北京大学生命科学学院</a></li>
+                                    <li><a target="_blank" title="北京生命科学研究所" href="http://www.nibs.ac.cn/">北京生命科学研究所</a></li>
+                                    <li><a target="_blank" title="北京大学生命科学联合中心" href="http://www.cls.edu.cn/">北京大学生命科学联合中心</a></li>
+                                    <li><a target="_blank" title="清华大学生命科学学院" href="http://life.tsinghua.edu.cn/">清华大学生命科学学院</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="am-u-sm-8">
+                <div class="am-g blog-entry-article am-padding-bottom-0 am-margin-bottom-0" style="border-bottom:none;">
+                    <div class="am-u-sm-12 blog-entry-text am-padding-right-0">
+                        <div class="blog-sidebar-widget blog-bor" style="height: 254px;">
+                            <h2 class="blog-text-left blog-title"><span class="am-icon-joomla am-icon-sm">&nbsp;&nbsp;学术报告</span><a class="am-fr lintul-links-a am-icon-arrow-circle-right am-icon-sm" href="/list/index/xsky/xsbg">&nbsp;more</a></h2>
+                            <ul class="news-list news-list-8">
+                                @foreach (var item in ViewBag.ArticleXsbg) {
+                                    <li>
+                                        <a href="/detail/index/@item.id" title="@item.title">@item.title</a>
+                                        <span class="date">@item.utime.ToString("yyyy-MM-dd")</span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!--友情链接&学术报告-->
+    @Html.Partial("Search")
+    @Html.Partial("Footer")
+</body>
+</html>

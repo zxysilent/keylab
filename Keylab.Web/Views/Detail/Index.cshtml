@@ -1,0 +1,95 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+    <title>西南野生动植物资源保护教育部重点实验室</title>
+    <meta name="renderer" content="webkit">
+    <link rel="alternate icon" type="image/png" href="/favicon.png">
+    <link href="~/Assets/css/amazeui.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/app.css" rel="stylesheet" />
+    <!--[if lte IE 8 ]>
+        <script src="~/Assets/js/modernizr.min.js"></script>
+        <script src="~/Assets/js/amazeui.ie8polyfill.min.js"></script>
+     <![endif]-->
+
+    <style>
+        td, th {
+            padding: 2px;
+        }
+    </style>
+</head>
+<body id="blog">
+    @Html.Partial("Header")
+    @Html.Partial("Naver")
+    <!-- content srart -->
+    <div class="container">
+        <div class="am-panel am-margin-bottom-0">
+            <div class="am-panel-bd am-text-center am-padding-horizontal-0">
+                <h1>@ViewBag.info.title</h1>
+                <span class="am-margin-left-sm">
+                    编辑：<span>@ViewBag.info.author</span>
+                </span>
+                <span class="am-margin-left-sm">
+                    来源：<span>@ViewBag.info.origin</span>
+                </span>
+                <span class="am-margin-left-sm">
+                    点击数：<span>@ViewBag.info.hit</span>
+                </span>
+                <span class="am-margin-left-sm">
+                    更新时间：<span>@ViewBag.info.utime.ToString("yyyy-MM-dd")</span>
+                </span>
+            </div>
+            <div class="am-panel-bd am-padding-horizontal-0">
+                @Html.Raw(ViewBag.info.content)
+            </div>
+            <div class="am-panel-bd am-padding-horizontal-0">
+                <ul class="am-list detail_list">
+                    <li>
+                        @if (ViewBag.prev != null) {
+                            <a href="/detail/index/@ViewBag.prev.id" class="am-text-truncate" title="@ViewBag.prev.title">上一篇：@ViewBag.prev.title</a>
+                            <span class="am-list-date">@ViewBag.prev.utime.ToString("yyyy-MM-dd")</span>
+                        } else {
+                            <a class="am-text-truncate" href="javascript:;">上一篇：无</a>
+                        }
+
+                    </li>
+                    <li>
+                        @if (ViewBag.next != null) {
+                            <a href="/detail/index/@ViewBag.next.id" class="am-text-truncate" title="@ViewBag.next.title">下一篇：@ViewBag.next.title</a>
+                            <span class="am-list-date">@ViewBag.next.utime.ToString("yyyy-MM-dd")</span>
+                        } else {
+                            <a class="am-text-truncate" href="javascript:;">下一篇：无</a>
+                        }
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- content end -->
+    @Html.Partial("Footer")
+    <script>
+function CloseWebPage() {
+    if (navigator.userAgent.indexOf("MSIE") > 0) {
+        if (navigator.userAgent.indexOf("MSIE 6.0") > 0) {
+            window.opener = null;
+            window.close();
+        } else {
+            window.open('', '_top');
+            window.top.close();
+        }
+    }
+    else if (navigator.userAgent.indexOf("Firefox") > 0) {
+        window.location.href = 'about:blank ';
+    } else {
+        window.opener = null;
+        window.open('', '_self', '');
+        window.close();
+    }
+}</script>
+</body>
+</html>
+

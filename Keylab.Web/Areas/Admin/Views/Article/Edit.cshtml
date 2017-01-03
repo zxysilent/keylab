@@ -1,0 +1,396 @@
+﻿<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <meta name="description" content="这是一个form页面">
+    <meta name="keywords" content="form">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <link rel="alternate icon" type="image/png" href="/favicon.png">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="~/Areas/Admin/Assets/css/amazeui.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Assets/css/admin.css" rel="stylesheet" />
+    <style>
+        #keylab-article-img {
+            max-height: 110px;
+            max-width: 160px;
+        }
+    </style>
+</head>
+<body>
+    <!-- header begin -->
+    @Html.Partial("Header")
+    <!-- header end -->
+    <div class="am-cf admin-main">
+        <!-- sidebar begin -->
+        @Html.Partial("Naver")
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="admin-content-body">
+                <div class="am-cf am-padding am-padding-bottom-0">
+                    <div class="am-fl am-cf">
+                        <strong class="am-text-primary am-text-lg">文章</strong> /
+                        <small>编辑</small>
+                    </div>
+                </div>
+                <hr>
+                <div class="am-g">
+                    <div class="am-tabs am-margin" data-am-tabs="{noSwipe: 1}">
+                        <ul class="am-tabs-nav am-nav am-nav-tabs">
+                            <li class="am-active"><a href="#tab1">基本信息</a></li>
+                            <li><a href="#tab2">详细描述</a></li>
+                        </ul>
+                        <div class="am-tabs-bd">
+                            <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+                                <div class="am-g am-margin-top">
+                                    <div class="am-u-sm-4 am-u-md-2 am-text-right">所属大类别：</div>
+                                    <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                        <select data-am-selected="{btnSize: 'sm'}" id="supclass" onchange="getSubclass()"></select>
+                                        <small class="am-text-danger">&nbsp;*必选</small>
+                                    </div>
+                                </div>
+                                <div class="am-g am-margin-top">
+                                    <div class="am-u-sm-4 am-u-md-2 am-text-right">所属小类别：</div>
+                                    <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                        <select data-am-selected="{btnSize: 'sm'}" id="subclass">
+                                            <option value="notype">请先选择大类别</option>
+                                        </select>
+                                        <small class="am-text-danger">&nbsp;*必选</small>
+                                    </div>
+                                </div>
+                                <div class="am-g am-margin-top">
+                                    <div class="am-u-sm-4 am-u-md-2 am-text-right">显示类别：</div>
+                                    <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                        <div class="am-btn-group" data-am-button>
+                                            @if (ViewBag.article.type) {
+                                                <label class="am-btn am-btn-default am-btn-xs">
+                                                    <input type="radio" name="article-type" checked="checked" value="1"> 普通文章
+                                                </label>
+                                                <label class="am-btn am-btn-default am-btn-xs">
+                                                    <input type="radio" name="article-type" value="0"> 信息页面
+                                                </label>
+                                            } else {
+                                                <label class="am-btn am-btn-default am-btn-xs">
+                                                    <input type="radio" name="article-type" value="1"> 普通文章
+                                                </label>
+                                                <label class="am-btn am-btn-default am-btn-xs">
+                                                    <input type="radio" name="article-type" checked="checked" value="0"> 信息页面
+                                                </label>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="am-g am-margin-top">
+                                    <div class="am-u-sm-4 am-u-md-2 am-text-right">优先类型：</div>
+                                    <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                        <div class="am-btn-group" data-am-button>
+                                            @if (ViewBag.article.order<11000) {
+                                                <label class="am-btn am-btn-default   am-btn-xs">
+                                                    <input type="radio" name="article-order" checked="checked" value="1"> 普通
+                                                </label>
+                                                <label class="am-btn am-btn-default am-btn-xs">
+                                                    <input type="radio" name="article-order" value="0"> 置顶
+                                                </label>
+                                            } else {
+                                                <label class="am-btn am-btn-default   am-btn-xs">
+                                                    <input type="radio" name="article-order" value="1"> 普通
+                                                </label>
+                                                <label class="am-btn am-btn-default am-btn-xs">
+                                                    <input type="radio" name="article-order" checked="checked" value="0"> 置顶
+                                                </label>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="am-g am-margin-top">
+                                    <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                        发布时间：
+                                    </div>
+                                    <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                        <form class="am-form am-form-inline">
+                                            <div class="am-form-group am-form-icon">
+                                                <i class="am-icon-calendar"></i>
+                                                <input type="date" id="utime" class="am-form-field am-input-sm" placeholder="选择时间" data-am-datepicker readonly required>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                                <div class="am-g am-margin-top">
+                                    <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                        修改图片：
+                                    </div>
+                                    <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                        <div id="uploader-demo">
+                                            <div id="filePicker">选择图片</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="am-g am-margin-top">
+                                    <div class="am-u-sm-8 am-u-sm-offset-4 am-u-md-10 am-u-md-offset-2">
+                                        <img id="keylab-article-img" src="@ViewBag.article.url">
+                                    </div>
+                                </div>
+                                <div class="am-g am-margin-top">
+                                    <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                        点击量：
+                                    </div>
+                                    <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                        <form class="am-form am-form-inline">
+                                            <div class="am-form-group am-form-icon">
+                                                <input type="number" class="am-form-field am-input-sm " id="hit" placeholder="点击量" min="0" value="@ViewBag.article.hit" max="19941009" required />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="am-tab-panel am-fade" id="tab2">
+                                <form class="am-form">
+                                    <div class="am-g am-margin-top">
+                                        <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                            文章标题：
+                                        </div>
+                                        <div class="am-u-sm-8 am-u-md-4">
+                                            <input type="text" class="am-input-sm" id="title" value="@ViewBag.article.title">
+                                        </div>
+                                        <div class="am-hide-sm-only am-u-md-6"><small class="am-text-danger">*必填</small></div>
+                                    </div>
+                                    <div class="am-g am-margin-top">
+                                        <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                            文章作者：
+                                        </div>
+                                        <div class="am-u-sm-8 am-u-md-4">
+                                            <input type="text" class="am-input-sm" id="author" value="@ViewBag.article.author">
+                                        </div>
+                                        <div class="am-hide-sm-only am-u-md-6"><small class="am-text-danger">*必填</small></div>
+                                    </div>
+                                    <div class="am-g am-margin-top">
+                                        <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                            文章来源：
+                                        </div>
+                                        <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                                            <input type="text" class="am-input-sm" id="origin" value="@ViewBag.article.origin">
+                                        </div>
+                                    </div>
+                                    <div class="am-g am-margin-top-sm">
+                                        <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                                            文章内容：
+                                        </div>
+                                        <div class="am-u-sm-12 am-u-md-8">
+                                            <textarea style="min-height:400px;max-width:100%" id="editor">@ViewBag.article.content</textarea>
+                                        </div>
+                                        <div class="am-hide-sm-only am-u-md-2"><small class="am-text-danger">*必填</small></div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-margin">
+                    <a id="create" href="javascript:edit()" class="am-btn am-btn-danger am-btn-xs am-padding-left-xl am-padding-right-xl">确定修改</a>
+                    <a href="javascript:location.reload()" class="am-btn am-btn-success am-btn-xs am-padding-left-xl am-padding-right-xl">重置填写</a>
+                    <a href="/admin/article/index" class="am-btn am-btn-primary am-btn-xs am-padding-left-xl am-padding-right-xl">取消返回</a>
+                </div>
+            </div>
+        </div>
+        <!-- content end -->
+    </div>
+    @Html.Partial("Footer")
+    <script src="~/Areas/Admin/Assets/js/uploader/webuploader.nolog.min.js"></script>
+    <script src="~/Areas/Admin/Assets/ueditor/ueditor.config.js"></script>
+    <script src="~/Areas/Admin/Assets/ueditor/ueditor.all.min.js"></script>
+    <script src="~/Areas/Admin/Assets/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <script>
+        //keylab-enclosure
+        // 初始化Web Uploader
+        var uploader = WebUploader.create({
+            auto: true,
+            swf: '~/Areas/Admin/Assets/js/uploader/Uploader.swf',
+            server: '/admin/article/upload',
+            pick: '#filePicker',
+            formData: {},
+            fileVal: 'file',
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/*'
+            },
+            duplicate: true,
+            compress: {
+                width: 380,
+                height: 220,
+                quality: 90,
+                allowMagnify: false,
+                crop: false,
+                preserveHeaders: true,
+                noCompressIfLarger: false,
+                compressSize: 0
+            }
+        });
+        //监听上传成功
+        uploader.on('uploadSuccess', function (file, data) {
+            if (data.status == 1) {
+                $("#keylab-article-img").attr('src', data.message);
+            } else {
+                utils.msgErr(data.message);
+            }
+        });
+        //监听上传失败
+        uploader.on('uploadError', function (file) {
+            utils.msgErr('图片上传失败,请刷新后重试！');
+        });
+        var ue = UE.getEditor('editor', {
+            autoHeightEnabled: false,
+            autoFloatEnabled: true,
+            wordCount: false,
+            //elementPathEnabled: false,
+        });
+        $(function () {
+            //初始化加载数据
+            getSupclass();
+            $("#utime").datepicker('setValue', '@ViewBag.article.utime.ToString("yyyy-MM-dd")');
+            // init(1, 5)
+        });
+        function getSupclass() {
+            utils.ajax({
+                url: "/admin/article/supclass",
+                succe: function (data) {
+                    var ctn = [];
+                    if (data.status == 1) {
+                        ctn.push('<option value="notype">所有分类</option>');
+                        $.each(data.message, function (k, v) {
+                            ctn.push('<option value="' + v.supnum + ';' + v.supname + '">' + v.supname + '</option>');
+                        })
+                    } else {
+                        ctn.push('<option value="notype">没有分类</option>');
+                    }
+                    $("#supclass").html(ctn.join(''));
+                    $("#supclass").val('@ViewBag.article.supnum' + ';@ViewBag.article.supname');
+                    getSubclass();
+                    if (!$.AMUI.support.mutationobserver) {
+                        $("#supclass").trigger('changed.selected.amui');
+                    }
+                    $("#subclass").val('@ViewBag.article.subnum' + ';@ViewBag.article.subname');
+                    if (!$.AMUI.support.mutationobserver) {
+                        $("#subclass").trigger('changed.selected.amui');
+                    }
+                }
+            });
+        }
+        function getSubclass() {
+            var $sup = $("#supclass");
+            utils.ajax({
+                url: "/admin/article/subbysup",
+                data: { sup: $sup.val().split(';')[0] },
+                async: false,
+                succe: function (data) {
+                    var ctn = [];
+                    if (data.status == 1) {
+                        ctn.push('<option value="notype">所有分类</option>');
+                        $.each(data.message, function (k, v) {
+                            ctn.push('<option value="' + v.subnum + ';' + v.subname + '">' + v.subname + '</option>');
+                        })
+                    } else {
+                        ctn.push('<option value="notype">请先选择大类别</option>');
+                    }
+                    $("#subclass").html(ctn.join(''));
+                    if (!$.AMUI.support.mutationobserver) {
+                        $("#subclass").trigger('changed.selected.amui');
+                    }
+                }
+            });
+        }
+        //修改信息
+        function edit() {
+            //大类
+            var $supclass = $("#supclass");
+            if ($supclass.val() == 'notype') {
+                utils.msgErr('请选择大类别');
+                $supclass.focus();
+                return;
+            }
+            var $subclass = $("#subclass");
+            if ($subclass.val() == 'notype') {
+                utils.msgErr('请选择小类别');
+                $subclass.focus();
+                return;
+            }
+            var type = $("input[name='article-type']:checked").val();
+            var order = $("input[name='article-order']:checked").val();
+            if (order != 1) {
+                order = 10000 + 1000;
+            } else {
+                order = 10000;
+            }
+            var $utime = $("#utime");
+            var $url = $("#keylab-article-img");
+            var $hit = $("#hit");
+            if ($hit.val() == '') {
+                utils.msgErr('请填写点击量');
+                $hit.focus();
+                return;
+            }
+            if (isNaN(parseInt($hit.val(), 10))) {
+                utils.msgErr('请填写正确的点击量');
+                $hit.focus().val(0);
+                return;
+            }
+            var $title = $("#title");
+            if ($title.val().trim() == '') {
+                utils.msgErr('请填写文章标题');
+                $title.focus();
+                return;
+            }
+            var $author = $("#author");
+            if ($author.val().trim() == '') {
+                utils.msgErr('请填写文章作者');
+                $author.focus();
+                return;
+            }
+            var $origin = $("#origin");
+            var content = ue.getContent();
+            if (content.trim() == '') {
+                utils.msgErr('请填写文章内容');
+                ue.focus();
+                return;
+            }
+            var sup = $supclass.val().split(';');
+            var sub = $subclass.val().split(';');
+            utils.ajax({
+                url: "/admin/article/editinfo",
+                data: {
+                    id:@ViewBag.article.id,
+                    author: $author.val().trim(),
+                    type: (type == 1 ? true : false),
+                    origin: $origin.val().trim(),
+                    title: $title.val().trim(),
+                    content: content,
+                    url: $url.attr('src'),
+                    hit: parseInt($hit.val(), 10),
+                    supnum: sup[0],
+                    supname: sup[1],
+                    subnum: sub[0],
+                    subname: sub[1],
+                    order: order,
+                    utime: $utime.val(),
+                    status: true
+                },
+                succe: function (data) {
+                    if (data.status == 1) {
+                        utils.msgOk(data.message, function () {
+                            location.href = '/admin/article/index';
+                        });
+                    } else {
+                        utils.msgErr(data.message, function () {
+                            location.reload();
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keylab.Web", "Keylab.Web\Keylab.Web.csproj", "{EE6A84D0-0A88-41AE-B34C-BFE09AA138C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keylab.BLL", "Keylab.BLL\Keylab.BLL.csproj", "{38740BC6-C554-4986-80E3-1F833B557E27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keylab.Models", "Keylab.Models\Keylab.Models.csproj", "{F990CC62-158B-406A-932A-E9A20008AAAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keylab.DAL", "Keylab.DAL\Keylab.DAL.csproj", "{3A791DDD-979B-420C-B08E-040D71E13156}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Keylab.Utils", "Keylab.Utils\Keylab.Utils.csproj", "{7081F550-DBDD-4A2D-A669-09B115DE1B62}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE6A84D0-0A88-41AE-B34C-BFE09AA138C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE6A84D0-0A88-41AE-B34C-BFE09AA138C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE6A84D0-0A88-41AE-B34C-BFE09AA138C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE6A84D0-0A88-41AE-B34C-BFE09AA138C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38740BC6-C554-4986-80E3-1F833B557E27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38740BC6-C554-4986-80E3-1F833B557E27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38740BC6-C554-4986-80E3-1F833B557E27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38740BC6-C554-4986-80E3-1F833B557E27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F990CC62-158B-406A-932A-E9A20008AAAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F990CC62-158B-406A-932A-E9A20008AAAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F990CC62-158B-406A-932A-E9A20008AAAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F990CC62-158B-406A-932A-E9A20008AAAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A791DDD-979B-420C-B08E-040D71E13156}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A791DDD-979B-420C-B08E-040D71E13156}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A791DDD-979B-420C-B08E-040D71E13156}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A791DDD-979B-420C-B08E-040D71E13156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7081F550-DBDD-4A2D-A669-09B115DE1B62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7081F550-DBDD-4A2D-A669-09B115DE1B62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7081F550-DBDD-4A2D-A669-09B115DE1B62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7081F550-DBDD-4A2D-A669-09B115DE1B62}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

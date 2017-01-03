@@ -1,0 +1,260 @@
+﻿<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <meta name="description" content="这是一个 gallery 页面">
+    <meta name="keywords" content="gallery">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="alternate icon" type="image/png" href="/favicon.png">
+    <link href="~/Areas/Admin/Assets/css/amazeui.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Assets/css/admin.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- header begin -->
+    @Html.Partial("Header")
+    <!-- header end -->
+    <div class="am-cf admin-main">
+        <!-- sidebar begin -->
+        @Html.Partial("Naver")
+        <!-- sidebar end -->
+
+        <div class="admin-content">
+            <div class="admin-content-body">
+                <div class="am-cf am-padding am-padding-bottom-0">
+                    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">文章</strong> / <small>列表</small></div>
+                </div>
+                <hr>
+                <div class="am-g">
+                    <div class="am-u-sm-12 am-u-md-3">
+                        <div class="am-form-group">
+                            <div class="am-btn-toolbar">
+                                <div class="am-btn-group am-btn-group-xs">
+                                    <a href="/admin/article/add" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="am-u-sm-12 am-u-md-3">
+                        <div class="am-form-group">
+                            大类别：<select data-am-selected="{btnSize: 'sm'}" id="supclass" onchange="getSubclass()"></select>
+                        </div>
+                    </div>
+                    <div class="am-u-sm-12 am-u-md-3">
+                        <div class="am-form-group">
+                            小类别：<select data-am-selected="{btnSize: 'sm'}" id="subclass">
+                                <option value="alltype">请先选择大类别</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="am-u-sm-12 am-u-md-3">
+                        <div class="am-input-group am-input-group-sm">
+                            <input type="text" class="am-form-field" id="key" placeholder="关键词-标题">
+                            <span class="am-input-group-btn">
+                                <button class="am-btn am-btn-default" type="button" onclick="search()">搜索</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-g">
+                    <div class="am-u-sm-12">
+                        <table class="am-table am-table-striped am-table-hover table-main">
+                            <thead>
+                                <tr>
+                                    <th class="table-id">#</th>
+                                    <th class="am-hide-sm-only">作者</th>
+                                    <th class="am-hide-sm-only">来源</th>
+                                    <th class="am-hide-sm-only">类型</th>
+                                    <th>标题</th>
+                                    <th class="am-hide-sm-only">点击量</th>
+                                    <th class="am-hide-sm-only">大类</th>
+                                    <th class="am-hide-sm-only">小类</th>
+                                    <th class="am-hide-sm-only">更新时间</th>
+                                    <th class="am-hide-sm-only">优先级</th>
+                                    <th class="table-set">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ctn-article">
+                                @*<tr>
+                                        <td>1</td>
+                                        <td></td>
+                                        <td>default</td>
+                                        <td class="am-hide-sm-only">测试1号</td>
+                                        <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
+                                        <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
+                                        <td>
+                                            <div class="am-btn-toolbar">
+                                                <div class="am-btn-group am-btn-group-xs">
+                                                    <a class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</a>
+                                                    <a class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-search"></span> 查看</a>
+                                                    <a class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>*@
+                            </tbody>
+                        </table>
+                        <div class="am-margin am-cf">
+                            <hr />
+                            <p class="am-fl" id="ctn-info">共 15 条记录</p>
+                            <ol class="am-pagination am-fr" id="ctn-pag"></ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("Footer")
+    <script src="~/Areas/Admin/Assets/js/laypage/laypage.js"></script>
+    <script>
+        document.onkeydown = function (event) {
+            var e = event || window.event || arguments.callee.caller.arguments[0];
+            if (e && e.keyCode == 13) { // enter 键
+                search();
+            }
+        };
+        $(function () {
+            //初始化加载数据
+            getSupclass();
+            init(1, 10, '', '', '')
+        });
+        function getSupclass() {
+            utils.ajax({
+                url: "/admin/article/supclass",
+                succe: function (data) {
+                    var ctn = [];
+                    if (data.status == 1) {
+                        ctn.push('<option value="alltype">所有分类</option>');
+                        $.each(data.message, function (k, v) {
+                            ctn.push('<option value="' + v.supnum + '">' + v.supname + '</option>');
+                        })
+                    } else {
+                        ctn.push('<option value="alltype">没有分类</option>');
+                    }
+                    $("#supclass").html(ctn.join(''));
+                    if (!$.AMUI.support.mutationobserver) {
+                        $("#supclass").trigger('changed.selected.amui');
+                    }
+                   
+                }
+            });
+        }
+        function getSubclass() {
+            var $sup = $("#supclass");
+            utils.ajax({
+                url: "/admin/article/subbysup",
+                data: { sup: $sup.val() },
+                succe: function (data) {
+                    var ctn = [];
+                    if (data.status == 1) {
+                        ctn.push('<option value="alltype">所有分类</option>');
+                        $.each(data.message, function (k, v) {
+                            ctn.push('<option value="' + v.subnum + '">' + v.subname + '</option>');
+                        })
+                    } else {
+                        ctn.push('<option value="alltype">请先选择大类别</option>');
+                    }
+                    $("#subclass").html(ctn.join(''));
+                    if (!$.AMUI.support.mutationobserver) {
+                        $("#subclass").trigger('changed.selected.amui');
+                    }
+                }
+            });
+        }
+        function search() {
+            var sup = $("#supclass").val();
+            var sub = $("#subclass").val();
+            if (sup == 'alltype') {
+                sup = '';
+            }
+            if (sub == 'alltype') {
+                sub = '';
+            }
+            init(1, 10, sup, sub, $("#key").val().trim());
+        }
+        //分页数据
+        function init(pi, ps, sup, sub, key) {
+            utils.ajax({
+                url: "/admin/article/listinfo",
+                data: { pi: pi, ps: ps, sup: sup, sub: sub, key: key },
+                succe: function (data) {
+                    $("#ctn-article").html('');
+                    $("#ctn-info").html('');
+                    $("#ctn-pag").html('');
+                    if (data.status == 1) {
+                        var ctn = [];
+                        $.each(data.message.data, function (k, v) {
+                            ctn.push('<tr><td>' + (k + 1) + '</td>');
+                            ctn.push('<td class="am-hide-sm-only">' + v.author + '</td>');
+                            ctn.push('<td class="am-hide-sm-only">' + v.origin + '</td>');
+                            if (v.type) {
+                                ctn.push('<td class="am-hide-sm-only">' + "普通页面" + '</td>');
+                            } else {
+                                ctn.push('<td class="am-hide-sm-only am-text-secondary">' + "信息页面" + '</td>');
+                            }
+
+                            ctn.push('<td>' + v.title + '</td>');
+                            ctn.push('<td class="am-hide-sm-only">' + v.hit + '</td>');
+                            ctn.push('<td class="am-hide-sm-only">' + v.supname + '</td>');
+                            ctn.push('<td class="am-hide-sm-only">' + v.subname + '</td>');
+                            ctn.push('<td class="am-hide-sm-only">' + utils.fmtDate(v.utime) + '</td>');
+                            if (v.order > 10000) {
+                                ctn.push('<td class="am-hide-sm-only am-text-success">' + "置顶" + '</td>');
+                            } else {
+                                ctn.push('<td class="am-hide-sm-only">' + "普通" + '</td>');
+                            }
+                            ctn.push('<td><div class="am-btn-toolbar"><div class="am-btn-group am-btn-group-xs">');
+                            ctn.push('<div title="编辑数据" onclick="javascript:location.href=\'/admin/article/edit/' + v.id + '\'" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</div>');
+                            ctn.push('<a title="查看数据" href="/admin/article/detail/' + v.id + '" class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-search"></span> 查看</a>');
+                            ctn.push('<a title="删除数据" href="javascript:del(' + v.id + ');" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</a></div></div></td></tr>');
+                        });
+                        //显示分页
+                        laypage({
+                            cont: 'ctn-pag',
+                            skin: '#1E9FFF',
+                            skip: true,
+                            prev: '<em><</em>',
+                            next: '<em>></em>',
+                            pages: Math.ceil(data.message.count / ps), //通过后台拿到的总页数
+                            curr: pi || 1, //当前页
+                            jump: function (obj, first) { //触发分页后的回调
+                                if (!first) { //点击跳页触发函数自身，并传递当前页：obj.curr
+                                    init(obj.curr, ps);
+                                }
+                            }
+                        });
+                        $("#ctn-info").html("共 " + data.message.count + " 条记录");
+                        $("#ctn-article").html(ctn.join(''));
+                    } else {
+                        utils.msg(data.message);
+                    }
+                }
+            });
+        }
+        //删除数据
+        function del(id) {
+            layer.confirm('你确定要删除么？', {
+                offset: '15%',
+                icon: 0,
+            }, function () {
+                utils.ajax({
+                    url: "/admin/article/delinfo",
+                    data: { id: id },
+                    succe: function (data) {
+                        if (data.status == 1) {
+                            utils.msgOk(data.message, function () {
+                                location.reload();
+                            });
+                        } else {
+                            utils.msgErr(data.message);
+                        }
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>

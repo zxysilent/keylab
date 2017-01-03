@@ -1,0 +1,129 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+    <title>西南野生动植物资源保护教育部重点实验室</title>
+    <meta name="renderer" content="webkit">
+    <link rel="alternate icon" type="image/png" href="/favicon.png">
+    <link href="~/Assets/css/amazeui.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/app.css" rel="stylesheet" />
+    <!--[if lte IE 8 ]>
+        <script src="~/Assets/js/modernizr.min.js"></script>
+        <script src="~/Assets/js/amazeui.ie8polyfill.min.js"></script>
+     <![endif]-->
+
+    <style>
+        .am-panel-hd {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .list-box {
+            min-height: 370px;
+        }
+
+        .list-list > li {
+            height: 54px;
+            border-bottom: 1px dashed #c9c9c9;
+        }
+
+            .list-list > li:hover {
+                border-color: #10D07A;
+            }
+
+            .list-list > li > a {
+                font-size: 1.6rem;
+                max-width: 1100px;
+                line-height: 54px;
+            }
+
+            .list-list > li > span {
+                font-size: 1.6rem;
+                line-height: 54px;
+            }
+
+        .lintul-pagination > li.lintul-active > a {
+            background-color: #10D07A;
+            color: #ffffff;
+            border-color: #10D07A;
+        }
+
+        .lintul-pagination > li > a:hover {
+            color: #ffffff;
+            background-color: #61F3B1;
+            border-color: #61F3B1;
+        }
+    </style>
+</head>
+<body id="blog">
+    @Html.Partial("Header")
+    @Html.Partial("Naver")
+
+    <div class="container">
+        <div class="am-panel am-margin-bottom-0">
+            <div class="am-panel-hd">关键词: <label class="am-text-secondary am-text-sm">@ViewBag.key</label></div>
+            <div class="am-panel-hd">搜索结果:</div>
+            <div class="am-panel-bd list-box">
+                <ul class="news-list list-list " id="ctn-article"></ul>
+            </div>
+        </div>
+        <div class="am-panel-bd am-padding-vertical-0">
+            <ul class="am-pagination am-pagination-centered lintul-pagination" id="ctn-pag"></ul>
+        </div>
+    </div>
+    <!-- content end -->
+    @Html.Partial("Search")
+    @Html.Partial("Footer")
+    <script src="~/Assets/js/layer/layer.js"></script>
+    <script src="~/Assets/js/laypage/laypage.js"></script>
+    <script>
+        $(function () {
+            init(1, 10, '@ViewBag.key');
+        });
+        //分页数据
+        function init(pi, ps, key) {
+            utils.ajax({
+                url: "/search/listinfo",
+                data: { pi: pi, ps: ps, key: key },
+                succe: function (data) {
+                    $("#ctn-article").html('');
+                    // $("#ctn-info").html('');
+                    $("#ctn-pag").html('');
+                    var ctn = [];
+                    if (data.status == 1) {
+
+                        $.each(data.message.data, function (k, v) {
+                            ctn.push(' <li><a href="/detail/index/' + v.id + '" title="' + v.title + '"><lable class="am-text-warning">[' + v.subname + ']</lable>&nbsp;' + v.title + '</a>');
+                            ctn.push('<span class="date">' + utils.fmtDate(v.utime) + '</span></li>');
+                        });
+                        //显示分页
+                        laypage({
+                            cont: 'ctn-pag',
+                            skin: '#5eb95e',
+                            skip: true,
+                            prev: '<em><</em>',
+                            next: '<em>></em>',
+                            pages: Math.ceil(data.message.count / ps), //通过后台拿到的总页数
+                            curr: pi || 1, //当前页
+                            jump: function (obj, first) { //触发分页后的回调
+                                if (!first) { //点击跳页触发函数自身，并传递当前页：obj.curr
+                                    init(obj.curr, ps);
+                                }
+                            }
+                        });
+                        //   $("#ctn-info").html("共 " + data.message.count + " 条记录");
+
+                    } else {
+                        ctn.push('<li><a href="javascript:;">未查询到相关信息</a></li>');
+                    }
+                    $("#ctn-article").html(ctn.join(''));
+                }
+            });
+        }
+    </script>
+</body>
+</html>

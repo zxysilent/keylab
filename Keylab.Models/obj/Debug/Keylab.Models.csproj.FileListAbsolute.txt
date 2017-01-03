@@ -1,0 +1,11 @@
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.Models\bin\Debug\Keylab.Models.dll
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.Models\bin\Debug\Keylab.Models.pdb
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.Models\obj\Debug\Keylab.Models.dll
+c:\users\zxyslt\documents\visual studio 2013\Projects\Keylab\Keylab.Models\obj\Debug\Keylab.Models.pdb
+D:\Work\生科\Keylab\Keylab.Models\bin\Debug\Keylab.Models.dll
+D:\Work\生科\Keylab\Keylab.Models\bin\Debug\Keylab.Models.pdb
+D:\Work\生科\Keylab\Keylab.Models\bin\Debug\Newtonsoft.Json.dll
+D:\Work\生科\Keylab\Keylab.Models\bin\Debug\Newtonsoft.Json.xml
+D:\Work\生科\Keylab\Keylab.Models\obj\Debug\Keylab.Models.dll
+D:\Work\生科\Keylab\Keylab.Models\obj\Debug\Keylab.Models.pdb
+D:\Work\生科\Keylab\Keylab.Models\obj\Debug\Keylab.Models.csprojResolveAssemblyReference.cache

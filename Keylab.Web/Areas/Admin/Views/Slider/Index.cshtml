@@ -1,0 +1,129 @@
+﻿<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <meta name="description" content="这是一个 gallery 页面">
+    <meta name="keywords" content="gallery">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <link rel="alternate icon" type="image/png" href="/favicon.png">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link href="~/Areas/Admin/Assets/css/amazeui.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Assets/css/admin.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- header begin -->
+    @Html.Partial("Header")
+    <!-- header end -->
+    <div class="am-cf admin-main">
+        <!-- sidebar begin -->
+        @Html.Partial("Naver")
+        <!-- sidebar end -->
+
+        <div class="admin-content">
+            <!-- content begin -->
+            <div class="admin-content-body">
+                <div class="am-cf am-padding am-padding-bottom-0">
+                    <div class="am-fl am-cf">
+                        <strong class="am-text-primary am-text-lg">首页大图</strong> / <small>列表</small>
+                    </div>
+                </div>
+                <hr>
+                <ul class="am-avg-sm-2 am-avg-md-4 am-avg-lg-6 am-margin gallery-list" id="ctn-slider">
+                    @*<li>
+                        <img class="am-img-thumbnail am-img-bdrs" src="" alt="" />
+                        <div class="gallery-title">君可见漫天落霞</div>
+                        <div class="gallery-desc">2375-09-26</div>
+                        <div class="am-btn-toolbar"><div class="am-btn-group am-btn-group-xs">
+                        <a class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</a>
+                        <a class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-search"></span> 查看</a>
+                        <a class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</a></div></div>
+                        </li>*@
+
+                </ul>
+
+                <div class="am-margin am-cf">
+                    <hr />
+                    <p class="am-fl" id="ctn-info"></p>
+                    <ol class="am-pagination am-fr" id="ctn-pag"></ol>
+                </div>
+            </div>
+            <!-- content end -->
+        </div>
+    </div>
+    @Html.Partial("Footer")
+    <script src="~/Areas/Admin/Assets/js/laypage/laypage.js"></script>
+    <script>
+        $(function () {
+            //初始化加载数据
+            init(1, 5)
+        });
+        //分页数据
+        function init(pi, ps) {
+            utils.ajax({
+                url: "/admin/slider/listinfo",
+                data: { pi: pi, ps: ps },
+                succe: function (data) {
+                    $("#ctn-slider").html('');
+                    $("#ctn-info").html('');
+                    if (data.status == 1) {
+                        var ctn = [];
+                        $.each(data.message.data, function (k, v) {
+                            ctn.push('<li title="编辑" ><img class="am-img-thumbnail am-img-bdrs" src="' + v.url + '" alt="图片" />');
+                            ctn.push('<div class="gallery-title">' + utils.subStr(v.title, 50) + '</div>');
+                            ctn.push('<div class="gallery-desc">' + utils.fmtDate(v.utime) + '</div>');
+                            ctn.push('<div class="am-btn-toolbar"><div class="am-btn-group am-btn-group-xs">');
+                            ctn.push('<div onclick="javascript:location.href=\'/admin/slider/edit/' + v.id + '\'" class="am-btn am-btn-default am-btn-xs am-text-secondary "><span class="am-icon-pencil-square-o"></span> 编辑</div>');
+                            ctn.push('<a href="/admin/slider/detail/' + v.id + '" class="am-btn am-btn-default am-btn-xs am-hide-sm-only "><span class="am-icon-search"></span> 查看</a>');
+                            ctn.push('<a href="javascript:del(' + v.id + ')" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</a></div></div></li>');
+                        });
+                        //显示分页
+                        laypage({
+                            cont: 'ctn-pag',
+                            skin: '#1E9FFF',
+                            skip: true,
+                            prev: '<em><</em>',
+                            next: '<em>></em>',
+                            pages: Math.ceil(data.message.count / ps), //通过后台拿到的总页数
+                            curr: pi || 1, //当前页
+                            jump: function (obj, first) { //触发分页后的回调
+                                if (!first) { //点击跳页触发函数自身，并传递当前页：obj.curr
+                                    init(obj.curr, ps);
+                                }
+                            }
+                        });
+                        $("#ctn-info").html("共 " + data.message.count + " 条记录");
+                        $("#ctn-slider").html(ctn.join(''));
+                    } else {
+                        utils.msg(data.message);
+                    }
+                }
+            });
+        }
+        //删除数据
+        function del(id) {
+            layer.confirm('你确定要删除么？', {
+                offset: '15%',
+                icon: 0,
+            }, function () {
+                utils.ajax({
+                    url: "/admin/slider/delinfo",
+                    data: { id: id },
+                    succe: function (data) {
+                        if (data.status == 1) {
+                            utils.msgOk(data.message, function () {
+                                location.reload();
+                            });
+                        } else {
+                            utils.msgErr(data.message);
+                        }
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>

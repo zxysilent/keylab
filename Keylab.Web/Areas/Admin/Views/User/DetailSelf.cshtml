@@ -1,0 +1,84 @@
+﻿<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>后台管理</title>
+    <meta name="description" content="这是一个form页面">
+    <meta name="keywords" content="form">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <link rel="alternate icon" type="image/png" href="/favicon.png">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link href="~/Areas/Admin/Assets/css/amazeui.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Assets/css/admin.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- header begin -->
+    @Html.Partial("Header")
+    <!-- header end -->
+    <div class="am-cf admin-main">
+        <!-- sidebar begin -->
+        @Html.Partial("Naver")
+        <!-- content start -->
+        <div class="admin-content">
+            <div class="admin-content-body">
+                <div class="am-cf am-padding am-padding-bottom-0">
+                    <div class="am-fl am-cf">
+                        <strong class="am-text-primary am-text-lg">个人信息</strong> /
+                        <small>查看</small>
+                    </div>
+                </div>
+                <hr>
+                <div class="am-g">
+                    <div class="am-u-sm-12 am-u-md-8">
+                        <form class="am-form am-form-horizontal">
+                            <div class="am-form-group">
+                                <label for="num" class="am-u-sm-3 am-form-label">账号：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="num" placeholder="账号" value="@ViewBag.user.num" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="name" class="am-u-sm-3 am-form-label">姓名：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="name" placeholder="姓名" value="@ViewBag.user.name" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="phone" class="am-u-sm-3 am-form-label">电话号码：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="phone" placeholder="电话号码" value="@ViewBag.user.phone" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="email" class="am-u-sm-3 am-form-label">邮箱：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="email" placeholder="邮箱" value="@ViewBag.user.email" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="login" class="am-u-sm-3 am-form-label">登陆次数：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="login" placeholder="登陆次数" value="@ViewBag.user.login" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="am-form-group">
+                                <label for="utime" class="am-u-sm-3 am-form-label">更新时间：</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="utime" placeholder="更新时间" value="@ViewBag.user.utime.ToString("yyyy-MM-dd")" disabled="disabled">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="am-margin">
+                    <a href="/admin/user/index" class="am-btn am-btn-primary am-btn-xs am-padding-left-xl am-padding-right-xl">返&nbsp;&nbsp;&nbsp;回</a>
+                </div>
+            </div>
+        </div>
+        <!-- content end -->
+    </div>
+    @Html.Partial("Footer")
+</body>
+</html>
